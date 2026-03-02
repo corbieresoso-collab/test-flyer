@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>so_onpole — Bachelorette Experience</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --hot-pink: #FF3D9A;
+  --baby-pink: #FFB3D9;
+  --silver: #E8E8F0;
+  --silver-dark: #C0C0D0;
+  --silver-shine: #F5F5FF;
+  --deep: #1A0A14;
+  --mid-dark: #2D1022;
+  --glitter: #FFD6EC;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(3deg); }
+}
+@keyframes float2 {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(-2deg); }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(255,61,154,0.4), 0 0 60px rgba(255,61,154,0.1); }
+  50% { box-shadow: 0 0 40px rgba(255,61,154,0.7), 0 0 100px rgba(255,61,154,0.3); }
+}
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1) rotate(180deg); }
+}
+@keyframes disco {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+body {
+  background: var(--deep);
+  font-family: 'Montserrat', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+  overflow-x: hidden;
+}
+
+/* Disco ball background effect */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: 
+    radial-gradient(ellipse at 20% 20%, rgba(255,61,154,0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(192,192,208,0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(45,16,34,0.8) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.poster {
+  width: 600px;
+  position: relative;
+  z-index: 1;
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+/* ── FLOATING DISCO ELEMENTS ── */
+.disco-ball {
+  position: absolute;
+  top: -30px;
+  right: 40px;
+  width: 80px;
+  height: 80px;
+  z-index: 10;
+  animation: float 4s ease-in-out infinite;
+}
+.disco-ball-inner {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: 
+    radial-gradient(circle at 35% 35%, #ffffff 0%, #e0e0f0 20%, #c0c0d8 40%, #8080a0 70%, #404060 100%);
+  position: relative;
+  box-shadow: 
+    0 0 30px rgba(255,255,255,0.5),
+    inset -10px -10px 20px rgba(0,0,0,0.4),
+    inset 5px 5px 10px rgba(255,255,255,0.6);
+}
+.disco-ball-inner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 4px,
+    rgba(0,0,0,0.15) 4px,
+    rgba(0,0,0,0.15) 5px
+  ),
+  repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 4px,
+    rgba(0,0,0,0.15) 4px,
+    rgba(0,0,0,0.15) 5px
+  );
+}
+
+/* Sparkles */
+.sparkle {
+  position: absolute;
+  color: var(--hot-pink);
+  font-size: 20px;
+  animation: sparkle 2s ease-in-out infinite;
+  pointer-events: none;
+}
+.sparkle:nth-child(1) { top: 60px; left: 20px; animation-delay: 0s; }
+.sparkle:nth-child(2) { top: 120px; right: 15px; animation-delay: 0.5s; font-size: 14px; }
+.sparkle:nth-child(3) { top: 200px; left: 10px; animation-delay: 1s; font-size: 16px; }
+.sparkle:nth-child(4) { top: 300px; right: 5px; animation-delay: 1.5s; font-size: 12px; }
+
+/* ── HEADER ── */
+.header {
+  background: linear-gradient(135deg, var(--mid-dark) 0%, #3D0A28 50%, var(--mid-dark) 100%);
+  border: 1px solid rgba(255,61,154,0.3);
+  border-radius: 30px 30px 0 0;
+  padding: 50px 50px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--hot-pink), var(--silver), var(--hot-pink), transparent);
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
+}
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: -50px; left: 50%; transform: translateX(-50%);
+  width: 300px; height: 100px;
+  background: radial-gradient(ellipse, rgba(255,61,154,0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--silver-dark);
+  margin-bottom: 20px;
+}
+.eyebrow::before, .eyebrow::after {
+  content: '✦';
+  color: var(--hot-pink);
+  font-size: 8px;
+}
+
+.main-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-style: italic;
+  font-size: 58px;
+  line-height: 1;
+  background: linear-gradient(135deg, #FFB3D9 0%, #FF3D9A 30%, #ffffff 50%, #FF3D9A 70%, #FFB3D9 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+  margin-bottom: 6px;
+  text-shadow: none;
+}
+
+.main-title-2 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 28px;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #E8E8F0 0%, #ffffff 40%, #C0C0D0 70%, #E8E8F0 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+  margin-bottom: 20px;
+}
+
+.brand {
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255,179,217,0.7);
+  font-weight: 500;
+}
+.brand span {
+  color: var(--hot-pink);
+  font-weight: 700;
+}
+
+/* ── INTRO ── */
+.intro {
+  background: linear-gradient(180deg, #2D1022 0%, #1E0A18 100%);
+  padding: 35px 50px;
+  text-align: center;
+  border-left: 1px solid rgba(255,61,154,0.2);
+  border-right: 1px solid rgba(255,61,154,0.2);
+  position: relative;
+}
+.intro-question {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--hot-pink);
+  margin-bottom: 12px;
+}
+.intro-text {
+  font-size: 14px;
+  line-height: 1.9;
+  color: rgba(255,230,240,0.85);
+  font-weight: 300;
+  font-style: italic;
+  font-family: 'Playfair Display', serif;
+}
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 50px;
+  background: linear-gradient(180deg, #1E0A18 0%, #250D1D 100%);
+  border-left: 1px solid rgba(255,61,154,0.2);
+  border-right: 1px solid rgba(255,61,154,0.2);
+}
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,61,154,0.5), transparent);
+}
+.divider-icon {
+  color: var(--hot-pink);
+  font-size: 16px;
+}
+
+/* ── PACKAGES ── */
+.packages-section {
+  background: linear-gradient(180deg, #250D1D 0%, #1A0A14 100%);
+  padding: 40px 40px 30px;
+  border-left: 1px solid rgba(255,61,154,0.2);
+  border-right: 1px solid rgba(255,61,154,0.2);
+}
+
+.section-label {
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--silver-dark);
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.section-label::before, .section-label::after {
+  content: '';
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--silver-dark));
+}
+.section-label::after {
+  background: linear-gradient(90deg, var(--silver-dark), transparent);
+}
+
+.pkg-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.pkg {
+  border-radius: 20px;
+  padding: 28px 24px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+.pkg:hover { transform: translateY(-4px); }
+
+.pkg-signature {
+  background: linear-gradient(135deg, #3D0A28 0%, #2A0620 100%);
+  border: 1px solid rgba(255,61,154,0.3);
+}
+.pkg-premium {
+  background: linear-gradient(135deg, #1E1428 0%, #150E20 100%);
+  border: 1px solid rgba(192,192,208,0.4);
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.pkg::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  border-radius: 20px 20px 0 0;
+}
+.pkg-signature::before {
+  background: linear-gradient(90deg, transparent, var(--hot-pink), transparent);
+}
+.pkg-premium::before {
+  background: linear-gradient(90deg, transparent, var(--silver), transparent);
+}
+
+.pkg-badge {
+  position: absolute;
+  top: -1px; right: 20px;
+  padding: 5px 14px;
+  border-radius: 0 0 10px 10px;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+.badge-bestseller {
+  background: var(--hot-pink);
+  color: white;
+}
+.badge-luxury {
+  background: linear-gradient(135deg, var(--silver-dark), var(--silver-shine));
+  color: var(--deep);
+}
+
+.pkg-name {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.pkg-signature .pkg-name { color: var(--hot-pink); }
+.pkg-premium .pkg-name { 
+  background: linear-gradient(135deg, #E8E8F0, #ffffff, #C0C0D0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pkg-price-block {
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.pkg-from {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  opacity: 0.6;
+  color: var(--silver);
+}
+.pkg-price {
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 1.1;
+}
+.pkg-signature .pkg-price { color: var(--hot-pink); }
+.pkg-premium .pkg-price { color: var(--silver-shine); }
+.pkg-price sup { font-size: 16px; vertical-align: top; margin-top: 6px; display: inline-block; }
+.pkg-price span { font-size: 13px; font-weight: 400; opacity: 0.6; }
+.pkg-duration {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.5;
+  color: var(--silver);
+  margin-top: 2px;
+}
+
+.pkg-list { list-style: none; }
+.pkg-list li {
+  font-size: 12px;
+  color: rgba(255,230,240,0.8);
+  padding: 5px 0;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  font-weight: 400;
+  line-height: 1.4;
+}
+.pkg-list li::before {
+  font-size: 10px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.pkg-signature .pkg-list li::before { content: '🌸'; }
+.pkg-premium .pkg-list li::before { content: '✦'; color: var(--silver-dark); }
+
+/* Pricing tiers */
+.pricing-tiers {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.pricing-tiers p {
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.tier {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+}
+.tier-group { font-size: 11px; color: rgba(255,230,240,0.6); }
+.tier-price { font-size: 12px; font-weight: 700; }
+.pkg-signature .tier-price { color: var(--baby-pink); }
+.pkg-premium .tier-price { color: var(--silver); }
+
+/* ── ADD-ONS ── */
+.addons-section {
+  background: #1A0A14;
+  padding: 0 40px 30px;
+  border-left: 1px solid rgba(255,61,154,0.2);
+  border-right: 1px solid rgba(255,61,154,0.2);
+}
+
+.addon-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.addon {
+  background: rgba(255,61,154,0.06);
+  border: 1px solid rgba(255,61,154,0.15);
+  border-radius: 14px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.addon-icon { font-size: 20px; }
+.addon-name { font-size: 12px; color: rgba(255,230,240,0.8); font-weight: 500; line-height: 1.3; }
+.addon-price {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--hot-pink);
+}
+.addon-price span { font-size: 10px; color: rgba(255,255,255,0.4); font-weight: 400; }
+
+/* ── INFO STRIP ── */
+.info-strip {
+  background: rgba(255,61,154,0.08);
+  border-left: 1px solid rgba(255,61,154,0.2);
+  border-right: 1px solid rgba(255,61,154,0.2);
+  padding: 20px 40px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+.info-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: rgba(255,230,240,0.8);
+  text-transform: uppercase;
+}
+.info-pill::before {
+  content: '✦';
+  color: var(--hot-pink);
+  font-size: 8px;
+}
+
+/* ── FOOTER ── */
+.footer {
+  background: linear-gradient(135deg, #3D0A28 0%, #2A0A20 50%, #1A0814 100%);
+  border: 1px solid rgba(255,61,154,0.3);
+  border-top: none;
+  border-radius: 0 0 30px 30px;
+  padding: 32px 50px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--hot-pink), var(--silver), var(--hot-pink), transparent);
+}
+.footer::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 200px; height: 60px;
+  background: radial-gradient(ellipse, rgba(255,61,154,0.15) 0%, transparent 70%);
+}
+
+.footer-cta {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: rgba(255,179,217,0.9);
+  margin-bottom: 20px;
+}
+
+.contact-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.wa-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.wa-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(37,211,102,0.5);
+}
+.wa-icon { font-size: 18px; }
+
+.ig-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--hot-pink), #C2185B);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(255,61,154,0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.ig-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(255,61,154,0.5);
+}
+
+.footer-note {
+  margin-top: 18px;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,179,217,0.4);
+}
+
+/* ── BOTTOM RIBBON ── */
+.ribbon {
+  margin-top: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 10px 0;
+}
+.ribbon-inner {
+  display: inline-block;
+  animation: shimmer 8s linear infinite;
+  background: linear-gradient(90deg, var(--hot-pink), var(--silver-dark), var(--hot-pink), var(--silver-dark));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 10px;
+  letter-spacing: 4px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+
+<div class="poster">
+
+  <!-- Floating disco ball -->
+  <div class="disco-ball">
+    <div class="disco-ball-inner"></div>
+  </div>
+
+  <!-- Sparkles -->
+  <div class="sparkle">✦</div>
+  <div class="sparkle">✧</div>
+  <div class="sparkle">✦</div>
+  <div class="sparkle">✧</div>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="eyebrow">Bali Exclusive Experience</div>
+    <div class="main-title">Bachelorette</div>
+    <div class="main-title-2">Pole Dance Experience</div>
+    <div class="brand">by <span>@so_onpole</span> · Bali, Indonesia</div>
+  </div>
+
+  <!-- INTRO -->
+  <div class="intro">
+    <div class="intro-question">Looking for the perfect activity for your bachelorette weekend?</div>
+    <div class="intro-text">
+      Give the bride-to-be something truly different — a private pole dance experience in Bali.
+      No experience needed, just good energy, her favorite people, and two hours she'll never forget.
+    </div>
+  </div>
+
+  <!-- DIVIDER -->
+  <div class="divider" style="padding-top:20px; padding-bottom:20px;">
+    <div class="divider-line"></div>
+    <div class="divider-icon">🪩</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <!-- PACKAGES -->
+  <div class="packages-section">
+    <div class="section-label">Our Packages</div>
+    <div class="pkg-grid">
+
+      <!-- SIGNATURE -->
+      <div class="pkg pkg-signature">
+        <div class="pkg-badge badge-bestseller">Best Seller</div>
+        <div class="pkg-name">Signature</div>
+        <div class="pkg-price-block">
+          <div class="pkg-from">From</div>
+          <div class="pkg-price"><sup>$</sup>68 <span>/ pax</span></div>
+          <div class="pkg-duration">2 hours · Studio</div>
+        </div>
+        <ul class="pkg-list">
+          <li>Welcome drink (non alcoholic)</li>
+          <li>Warm up & choreography</li>
+          <li>Floor work included</li>
+          <li>HD Photos & Videos</li>
+          <li>Personalized playlist</li>
+          <li>Diploma certificate 🎓</li>
+        </ul>
+        <div class="pricing-tiers">
+          <p>Pricing by group size</p>
+          <div class="tier"><span class="tier-group">4–5 guests</span><span class="tier-price">$55/pax</span></div>
+          <div class="tier"><span class="tier-group">6–8 guests</span><span class="tier-price">$48/pax</span></div>
+          <div class="tier"><span class="tier-group">9–12 guests</span><span class="tier-price">$42/pax</span></div>
+        </div>
+      </div>
+
+      <!-- PREMIUM -->
+      <div class="pkg pkg-premium">
+        <div class="pkg-badge badge-luxury">✦ Luxury</div>
+        <div class="pkg-name">Premium</div>
+        <div class="pkg-price-block">
+          <div class="pkg-from">From</div>
+          <div class="pkg-price"><sup>$</sup>99 <span>/ pax</span></div>
+          <div class="pkg-duration">2h30 · Studio</div>
+        </div>
+        <ul class="pkg-list">
+          <li>Everything in Signature</li>
+          <li>Dedicated photo shoot</li>
+          <li>Glass of champagne 🥂</li>
+          <li>Themed choreography on demand</li>
+          <li>Instagrammable decor setup</li>
+          <li>Diploma certificate 🎓</li>
+        </ul>
+        <div class="pricing-tiers">
+          <p>Pricing by group size</p>
+          <div class="tier"><span class="tier-group">4–5 guests</span><span class="tier-price">$80/pax</span></div>
+          <div class="tier"><span class="tier-group">6–8 guests</span><span class="tier-price">$70/pax</span></div>
+          <div class="tier"><span class="tier-group">9–12 guests</span><span class="tier-price">$65/pax</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ADD-ONS -->
+  <div class="addons-section">
+    <div class="section-label" style="margin-top:28px;">Add-Ons</div>
+    <div class="addon-grid">
+      <div class="addon">
+        <div class="addon-icon">🥂</div>
+        <div class="addon-name">Prosecco + Fresh Fruits</div>
+        <div class="addon-price">+$40 <span>/ group</span></div>
+      </div>
+      <div class="addon">
+        <div class="addon-icon">✨</div>
+        <div class="addon-name">Full Vibe — Decor + Drinks + Snacks</div>
+        <div class="addon-price">+$80 <span>/ group</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INFO STRIP -->
+  <div class="info-strip">
+    <div class="info-pill">4 to 12 girls</div>
+    <div class="info-pill">No experience needed</div>
+    <div class="info-pill">All bodies welcome</div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-cta">Ready to make it unforgettable?</div>
+    <div class="contact-block">
+      <a class="wa-btn" href="https://wa.me/6282147802584">
+        <span class="wa-icon">💬</span>
+        WhatsApp us
+      </a>
+      <a class="ig-btn" href="https://instagram.com/so_onpole">
+        <span>📸</span>
+        @so_onpole
+      </a>
+    </div>
+    <div class="footer-note">+62 821 4780 2584 · Bali, Indonesia</div>
+  </div>
+
+  <!-- RIBBON -->
+  <div class="ribbon">
+    <div class="ribbon-inner">
+      ✦ bali bachelorette ✦ pole dance experience ✦ so_onpole ✦ no experience needed ✦ bali bachelorette ✦ pole dance experience ✦ so_onpole ✦ no experience needed ✦ bali bachelorette ✦ pole dance experience ✦
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
